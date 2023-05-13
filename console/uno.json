@@ -1,0 +1,20 @@
+{
+    "threads": 12,
+    "games": 500000,
+    "players": [{
+        "name": "Cal",
+        "strategy": "naive"
+    }, {
+        "name": "Jon",
+        "strategy": "naive"
+    }, {
+        "name": "Conner",
+        "strategy": "naive"
+    }, {
+        "name": "Payden",
+        "strategy": "naive"
+    }, {
+        "name": "Jake",
+        "strategy": "naive"
+    }]
+}
