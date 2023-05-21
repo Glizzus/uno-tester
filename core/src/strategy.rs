@@ -1,9 +1,4 @@
-use crate::{
-    card::Card,
-    hand::Hand,
-    player::PlayResult,
-    rules::Rules, algorithms::naive,
-};
+use crate::{algorithms::naive, card::Card, hand::Hand, player::PlayResult, rules::Rules};
 
 use std::{
     hash::{self, Hash},
@@ -28,7 +23,7 @@ impl Strategy {
     pub fn get(name: String) -> Self {
         match name.to_lowercase().as_str() {
             "naive" => Self::naive(),
-            _ => panic!("unknown strategy {}", name)
+            _ => panic!("unknown strategy {}", name),
         }
     }
 

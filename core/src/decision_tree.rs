@@ -2,7 +2,7 @@ use crate::card::Card;
 
 #[derive(PartialEq)]
 enum UnoCondition {
-    PlusStack
+    PlusStack,
 }
 
 struct DecisionNode<'a> {
@@ -18,19 +18,18 @@ struct Branch<'a> {
 impl<'a> DecisionNode<'a> {
     pub fn follow(&'a self, conditions: &[UnoCondition]) -> Option<&'a Card> {
         let mut current_node = self;
-    
+
         loop {
-            // Check if current node is a leaf node
+            // If node has no branches, it is a leaf and therefore a decision
             if current_node.branches.is_empty() {
                 return Some(&current_node.decision);
             }
-            
-            // Find the branch that matches the condition
+
             let matched_branch = current_node
                 .branches
                 .iter()
                 .find(|branch| conditions.contains(&branch.condition));
-            
+
             match matched_branch {
                 Some(branch) => {
                     // Move to the child node indicated by the matched branch

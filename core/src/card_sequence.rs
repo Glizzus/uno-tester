@@ -1,9 +1,7 @@
 use crate::card::Card;
 
-
-
 struct CardSequence<'a> {
-    cards: Vec<&'a Card>
+    cards: Vec<&'a Card>,
 }
 
 impl<'a> CardSequence<'a> {
@@ -14,9 +12,7 @@ impl<'a> CardSequence<'a> {
                 specials.push(card);
             }
         }
-        Self {
-            cards: specials
-        }
+        Self { cards: specials }
     }
 
     pub fn match_face(&self, other: &Card) -> Self {
@@ -26,9 +22,7 @@ impl<'a> CardSequence<'a> {
                 matches.push(card)
             }
         }
-        Self {
-            cards: matches
-        }
+        Self { cards: matches }
     }
 
     pub fn match_color(&self, other: &Card) -> Self {
@@ -38,8 +32,6 @@ impl<'a> CardSequence<'a> {
                 matches.push(card)
             }
         }
-        Self {
-            cards: matches
-        }
+        Self { cards: matches }
     }
 }

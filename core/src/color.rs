@@ -30,27 +30,6 @@ impl Color {
             .gen_range(0..colors.len());
         colors[i]
     }
-
-    pub fn to_num(&self) -> u32 {
-        match self {
-            Self::Red => 0,
-            Self::Yellow => 1,
-            Self::Green => 2,
-            Self::Blue => 3,
-            Self::Undecided => 4
-        }
-    }
-
-    pub fn from_num(n: u32) -> Self {
-        match n {
-            0 => Self::Red,
-            1 => Self::Yellow,
-            2 => Self::Green,
-            3 => Self::Blue,
-            4 => Self::Undecided,
-            _ => panic!("can not convert num {} to Color", n)
-        }
-    }
 }
 
 impl fmt::Display for Color {

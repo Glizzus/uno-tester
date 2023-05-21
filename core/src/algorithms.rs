@@ -12,7 +12,6 @@ fn random(hand: &mut Hand, candidates: Vec<usize>) -> PlayResult {
     PlayResult::new(Some(played), hand.is_empty())
 }
 
-
 /// The stupidest algorithm
 pub fn naive(card: &Card, hand: &mut Hand, rules: &Rules, plus_stack: bool) -> PlayResult {
     let candidates = if plus_stack {

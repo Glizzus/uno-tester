@@ -1,3 +1,5 @@
+use std::vec;
+
 pub enum Direction {
     Clockwise,
     CounterClockwise,
@@ -19,7 +21,6 @@ impl Direction {
     }
 }
 
-///
 pub struct ReversibleRing<T> {
     vec: Vec<T>,
     index: i32,
@@ -53,18 +54,15 @@ impl<T> ReversibleRing<T> {
         }
     }
 
-    /// Returns the a mutable reference to the next element
     pub fn next(&mut self) -> &mut T {
         self.skip();
         &mut self.vec[self.index as usize]
     }
 
-    /// Reverses the direction
     pub fn reverse(&mut self) {
         self.direction = self.direction.get_reverse();
     }
 
-    //
     pub fn skip(&mut self) {
         self.adjust_index(self.direction.to_num());
     }

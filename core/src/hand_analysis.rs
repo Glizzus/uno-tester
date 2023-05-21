@@ -1,26 +1,23 @@
-use crate::{hand::Hand, color::Color};
-
+use crate::{color::Color, hand::Hand};
 
 pub struct CardHistogram {
-    hist: [u32; 4]
+    hist: [u32; 4],
 }
 
 impl CardHistogram {
- 
     fn new(hand: &Hand) -> Self {
         let mut hist = [0; 4];
         for card in hand {
             let i = card.color.to_num();
             hist[i as usize] += 1;
         }
-        Self {
-            hist
-        }
+        Self { hist }
     }
 
     /// Returns the color with the max amount of occurences in this histogram
     pub fn max(&self) -> (Color, u32) {
-        let (i, val) = self.hist
+        let (i, val) = self
+            .hist
             .iter()
             .enumerate()
             .max_by_key(|&(_, val)| val)
@@ -33,7 +30,7 @@ pub struct HandAnalysis<'a> {
     hand: &'a Hand,
 
     histogram: Option<CardHistogram>,
-    histogram_built: bool
+    histogram_built: bool,
 }
 
 impl<'a> HandAnalysis<'a> {
@@ -41,7 +38,7 @@ impl<'a> HandAnalysis<'a> {
         Self {
             hand,
             histogram: None,
-            histogram_built: false
+            histogram_built: false,
         }
     }
 
@@ -53,6 +50,4 @@ impl<'a> HandAnalysis<'a> {
         }
         self.histogram.as_ref().unwrap()
     }
-
-
 }

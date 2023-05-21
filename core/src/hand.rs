@@ -1,4 +1,8 @@
-use std::{iter::Enumerate, vec, slice::{Iter, self}};
+use std::{
+    iter::Enumerate,
+    slice::{self, Iter},
+    vec,
+};
 
 use crate::{card::Card, rules::PlusStacking};
 
@@ -68,7 +72,7 @@ impl IntoIterator for Hand {
     }
 }
 
-impl <'a> IntoIterator for &'a Hand {
+impl<'a> IntoIterator for &'a Hand {
     type Item = &'a Card;
     type IntoIter = slice::Iter<'a, Card>;
 
