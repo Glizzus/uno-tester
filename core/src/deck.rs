@@ -5,7 +5,7 @@ use std::{
     fmt::{Display, Formatter},
 };
 
-use crate::{card::Card, color::Color, face::Face};
+use crate::{card::Card, color::{Color, ColorSuite}, face::Face};
 
 #[derive(Debug)]
 pub enum DeckError {
@@ -35,7 +35,7 @@ impl Deck {
     /// Constructs a new standard unshuffled Uno deck
     pub fn new() -> Self {
         let mut stack = Vec::new();
-        for color in Color::all() {
+        for color in ColorSuite::all() {
             stack.push(Card::new_colored(Face::Zero, color));
             for face in Face::double_faces() {
                 for _ in 0..2 {
@@ -116,8 +116,9 @@ impl Deck {
 
     pub fn re_wild(&mut self) {
         for card in self.stack.iter_mut() {
-            if card.is_wild {
-                card.color = Color::Undecided
+            match card.color {
+                Color::Wild(Some(_)) => card.color = Color::Wild(None),
+                _ => {}
             }
         }
     }

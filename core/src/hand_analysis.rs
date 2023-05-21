@@ -1,5 +1,5 @@
 use crate::{color::Color, hand::Hand};
-
+/*
 pub struct CardHistogram {
     hist: [u32; 4],
 }
@@ -51,3 +51,4 @@ impl<'a> HandAnalysis<'a> {
         self.histogram.as_ref().unwrap()
     }
 }
+*/

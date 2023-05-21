@@ -6,7 +6,7 @@ use std::{
 
 use crate::{
     card::Card,
-    color::Color,
+    color::{Color, ColorSuite},
     deck::{Deck, DeckError},
     face::Face,
     pile::Pile,
@@ -105,7 +105,7 @@ impl Game {
             // We can safely unwrap here because we peeked earlier
             let mut top = self.dealer.take().unwrap();
             if top.face == Face::Wild {
-                top.assign_color(Color::random())
+                top.assign_color(ColorSuite::random())
             }
             self.pile.add(top);
             break;
