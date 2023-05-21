@@ -1,6 +1,6 @@
 {
-    "threads": 12,
-    "games": 500000,
+    "threads": 1,
+    "games": 1,
     "players": [{
         "name": "Cal",
         "strategy": "naive"
