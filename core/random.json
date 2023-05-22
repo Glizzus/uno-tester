@@ -1,0 +1,10 @@
+{
+  "name": "random",
+  "strategy": {
+    "round": {
+      "condition": {
+        "match": "FACE"
+      }
+    }
+  }
+}

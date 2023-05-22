@@ -2,14 +2,14 @@ use std::fmt;
 
 use rand::{rngs::SmallRng, thread_rng, Rng, SeedableRng};
 
-use colored::Colorize;
+use colored::{ColoredString, Colorize};
 
 #[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 pub enum ColorSuite {
     Red,
     Yellow,
     Green,
-    Blue
+    Blue,
 }
 
 impl ColorSuite {
@@ -26,35 +26,46 @@ impl ColorSuite {
             .gen_range(0..colors.len());
         colors[i]
     }
+
+    fn colorize<T>(&self) -> fn(T) -> ColoredString
+    where
+        T: Sized + Colorize,
+    {
+        match self {
+            Self::Red => Colorize::red,
+            Self::Yellow => Colorize::yellow,
+            Self::Green => Colorize::green,
+            Self::Blue => Colorize::blue,
+        }
+    }
 }
 
 impl fmt::Display for ColorSuite {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Self::Red => write!(f, "{}", "Red".red()),
-            Self::Blue => write!(f, "{}", "Blue".blue()),
-            Self::Green => write!(f, "{}", "Green".green()),
-            Self::Yellow => write!(f, "{}", "Yellow".yellow())
-        }
+        let str = match self {
+            Self::Red => "Red",
+            Self::Blue => "Blue",
+            Self::Green => "Green",
+            Self::Yellow => "Yellow",
+        };
+        let colored = self.colorize()(str);
+        write!(f, "{colored}")
     }
 }
 
 #[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 pub enum Color {
     Standard(ColorSuite),
-    Wild(Option<ColorSuite>)
+    Wild(Option<ColorSuite>),
 }
 
 impl fmt::Display for Color {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             Self::Standard(color) => write!(f, "{color}"),
-            Self::Wild(option) => {
-                write!(f, "{}{}{}{}", "W".red(), "i".blue(), "l".green(), "d".yellow());
-                match option {
-                    None => write!(f, ""),
-                    Some(color) => write!(f, "{color}")
-                }
+            Self::Wild(None) => write!(f, "Wild"),
+            Self::Wild(Some(c)) => {
+                write!(f, "Wild {c}")
             }
         }
     }

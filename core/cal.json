@@ -1,0 +1,34 @@
+{
+  "name": "Cal's Strategy",
+  "strategy": {
+    "condition": {
+      "match": {
+        "face": ["*"],
+        "color": ["*"]
+      }
+    },
+    "success": {
+      "condition": {
+        "aboutToWin": true
+      },
+      "success": {
+        "play": true
+      },
+      "failure": {
+        "condition": {
+          "match": {
+            "face": ["!Wild", "!PlusFour"]
+          }
+        },
+        "success": {
+          "play": true
+        },
+        "failure": {
+          "condition": {
+            "match": {
+          }
+        }
+      }
+    }
+  }
+}

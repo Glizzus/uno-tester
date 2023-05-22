@@ -1,6 +1,12 @@
 use rand::{seq::SliceRandom, thread_rng};
 
-use crate::{card::Card, color::{Color, ColorSuite}, hand::Hand, player::PlayResult, rules::Rules};
+use crate::{
+    card::Card,
+    color::{Color, ColorSuite},
+    hand::Hand,
+    player::PlayResult,
+    rules::Rules,
+};
 
 fn random(hand: &mut Hand, candidates: Vec<usize>) -> PlayResult {
     // This unwrap is safe right now because we

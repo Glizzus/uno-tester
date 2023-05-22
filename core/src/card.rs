@@ -16,10 +16,7 @@ pub struct Card {
 
 impl Card {
     fn new(face: Face, color: Color) -> Self {
-        Card {
-            face,
-            color,
-        }
+        Card { face, color }
     }
 
     /// Constructs a new wild card with the given face.
@@ -37,9 +34,12 @@ impl Card {
         match self.color {
             // Wildcards always stack
             Color::Wild(None) => true,
-            _ => {
-                self.color == other.color || self.face == other.face
-            }
+            Color::Standard(self_color) | Color::Wild(Some(self_color)) => match other.color {
+                Color::Wild(None) => panic!("attempt to stack on unassigned wild card"),
+                Color::Wild(Some(other_color)) | Color::Standard(other_color) => {
+                    self_color == other_color || self.face == other.face
+                }
+            },
         }
     }
 
@@ -70,9 +70,16 @@ impl Card {
     /// Indicates whether this card is a simple numeric card.
     pub fn is_num(&self) -> bool {
         match self.face {
-            Face:: Zero | Face::One | Face::Two | Face::Three | Face::Four |
-            Face::Six | Face::Seven | Face::Eight | Face::Nine => true,
-            _ => false
+            Face::Zero
+            | Face::One
+            | Face::Two
+            | Face::Three
+            | Face::Four
+            | Face::Six
+            | Face::Seven
+            | Face::Eight
+            | Face::Nine => true,
+            _ => false,
         }
     }
 
@@ -83,7 +90,7 @@ impl Card {
     pub fn assign_color(&mut self, color: ColorSuite) {
         match self.color {
             Color::Wild(None) => self.color = Color::Wild(Some(color)),
-            _ => panic!("Attempted to assign color to unassigned wild card {}", self)
+            _ => panic!("Attempted to assign color to unassigned wild card {}", self),
         }
     }
 }

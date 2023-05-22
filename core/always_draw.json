@@ -1,0 +1,11 @@
+{
+  "name": "Always Draw",
+  "strategy": {
+    "success": {
+      "draw": true
+    },
+    "fail": {
+      "draw": true
+    }
+  }
+}

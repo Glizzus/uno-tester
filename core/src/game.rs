@@ -128,12 +128,12 @@ impl Game {
                 let result = player.play(top, &self.rules, true);
                 match result.card {
                     None => {
-                        //println!("{} has to draw {}", player, self.stack_count);
+                        println!("{} has to draw {}", player, self.stack_count);
                         loop {
                             match self.dealer.deal_many(player, self.stack_count) {
                                 Ok(()) => break,
                                 Err(e) => {
-                                    //println!("Deck Empty: Reshuffling");
+                                    println!("Deck Empty: Reshuffling");
                                     self.dealer.reshuffle(&mut self.pile);
                                 }
                             }
@@ -142,10 +142,10 @@ impl Game {
                     }
                     Some(c) => {
                         self.pile.add(c);
-                        //println!("{} stacked a {}", player, c);
+                        println!("{} stacked a {}", player, c);
                         self.stack_count += c.plus_stack_value();
                         if result.was_last_card {
-                            //player.proclaim_victory();
+                            player.proclaim_victory();
                             return player.clone();
                         }
                     }
@@ -159,9 +159,9 @@ impl Game {
             match result.card {
                 Some(c) => {
                     self.pile.add(c);
-                    //println!("{} played {}", player, c);
+                    if self.verbose { println!("{} played {}", player, c) }
                     if result.was_last_card {
-                        //player.proclaim_victory();
+                        player.proclaim_victory();
                         return player.clone();
                     }
                     match c.face {
@@ -172,19 +172,19 @@ impl Game {
                     }
                 }
                 None => {
-                    //println!("{} couldn't play and had to draw", player);
+                    println!("{} couldn't play and had to draw", player);
                     loop {
                         match self.dealer.deal(&mut player) {
                             Ok(()) => break,
                             Err(e) => {
-                                //println!("Deck Empty: Reshuffling...");
+                                println!("Deck Empty: Reshuffling...");
                                 self.dealer.reshuffle(&mut self.pile);
                             }
                         }
                     }
                 }
             }
-            //thread::sleep(Duration::from_millis(500))
+            thread::sleep(Duration::from_millis(500))
         }
     }
 }
